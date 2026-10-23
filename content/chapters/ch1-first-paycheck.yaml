@@ -1,0 +1,1202 @@
+chapter: 1
+id: first-paycheck
+title: First Paycheck
+ages: 18–22
+objectives:
+  - Read a pay stub and explain why take-home pay is smaller than gross pay
+  - Build a simple budget that pays you first
+  - Start an emergency fund and keep it somewhere it can grow
+  - Spot overdraft fees, subscription creep and fake urgency before they cost you
+recap:
+  - Take-home pay, not salary, is the number you budget with
+  - Automating savings beats saving "whatever's left"
+  - A cushion of even one month of essentials turns emergencies into inconveniences
+  - Small fees and small subscriptions add up to big yearly costs
+  - When an offer rushes you, slow down
+
+episodes:
+  # ════════════════════════════════════════════════════════════
+  - id: ch1-e1
+    title: The First Paycheck
+    intro: You're 18, you just moved into a two-bedroom apartment with Priya, and you start at Bluebird Coffee on Monday.
+    scenes:
+      - id: ch1-e1-s1
+        title: Where did it go?
+        concepts: [gross-vs-net]
+        difficulty: 1
+        texts:
+          - { from: bank, text: 'Direct deposit received from BLUEBIRD COFFEE LLC.' }
+          - { from: kai, text: 'FIRST PAYCHECK!!! 🎉 ok how rich are you' }
+        setup: >-
+          Your offer letter said {player.grossAnnualIncome} a year, so you were expecting about
+          {player.grossMonthlyIncome} a month. Your deposits for the month add up to
+          {player.netMonthlyIncome}. Marcus, who has worked here for six years, leans over the
+          espresso machine: "Just claim exempt on your W-4. Bigger checks. Everybody does it."
+        choices:
+          - id: a
+            text: Read your pay stub line by line
+            quality: best
+            effects: { goals: 3 }
+            outcome: >-
+              Federal income tax, Social Security, Medicare, state tax. Nobody stole anything —
+              this is what a paycheck looks like. You write down your real number:
+              {player.netMonthlyIncome} a month.
+          - id: b
+            text: Take Marcus's tip and claim "exempt" so nothing is withheld
+            quality: costly
+            tempting: true
+            effects: { checking: 800, stress: -2 }
+            setFlags: [w4-exempt]
+            schedule: [{ event: w4-tax-bill, inMonths: 9 }]
+            outcome: >-
+              Your next eight paychecks are each about $100 bigger. It feels amazing. The tax is
+              still owed, though — it's just waiting for you in April.
+          - id: c
+            text: Don't overthink it — money is money
+            quality: risky
+            effects: { stress: 2 }
+            outcome: >-
+              You'll be planning around a number you've never actually looked at. That usually
+              goes fine until it doesn't.
+        explanation: >-
+          Gross pay is what you earn. Net pay, or take-home pay, is what's left after your employer
+          withholds federal income tax, Social Security, Medicare and often state tax. Withholding
+          isn't extra cost; it's paying your tax a little at a time. Claiming "exempt" stops the
+          income-tax part, but you can only do that if you expect to owe no federal income tax at
+          all. Otherwise, you owe it all at once later.
+        whyItMatters:
+          text: >-
+            On {grossAnnual} a year, about {withheldMonthly} a month ({withheldShare}) is withheld
+            before you see it. Your real monthly number is {netMonthly}, not {grossMonthly}.
+          calc: takeHomePay
+          inputs: { grossAnnual: player.grossAnnualIncome }
+          illustrative: true
+        takeaway: Budget with your take-home pay, not your salary.
+        review:
+          question: Your job pays $2,400 a month before taxes. What should you build your budget on?
+          options:
+            - The full $2,400
+            - What actually lands in your account after withholding
+            - Whatever is left at the end of the month
+          answer: What actually lands in your account after withholding
+          explain: Withholding comes out before you ever see it, so take-home pay is the real number.
+        sources:
+          - title: 'Form W-4: Employee''s Withholding Certificate (instructions on claiming exemption)'
+            publisher: Internal Revenue Service
+            url: https://www.irs.gov/forms-pubs/about-form-w-4
+        needsVerification: true
+        elapse: 0
+
+      - id: ch1-e1-s2
+        title: Three jars
+        concepts: [budgeting, present-bias]
+        difficulty: 1
+        texts:
+          - { from: dee, text: "Congrats on the job, sweet pea. Now let me show you the only magic trick I know." }
+          - { from: dee, text: 'Three jars. Needs, wants, savings. Savings goes FIRST.' }
+        setup: >-
+          You take home {player.netMonthlyIncome} a month. Rent is {player.rent} and groceries,
+          phone, transit and utilities run about {player.otherNeeds}. Aunt Dee wants you to set up a
+          plan before your second paycheck lands. How do you handle it?
+        choices:
+          - id: a
+            text: Move $100 to savings automatically every payday, then give the rest a job
+            quality: best
+            effects: { set: { autoSave: 100 }, adjust: { wants: -60 }, stress: -3, goals: 3 }
+            setFlags: [pays-self-first]
+            outcome: >-
+              The transfer happens before you can think about it. Money you never see is money you
+              don't spend — your takeout habit shrinks on its own.
+            bias: { id: present-bias, resisted: true }
+          - id: b
+            text: Track every purchase in a color-coded spreadsheet
+            quality: good
+            effects: { adjust: { wants: -40 }, stress: 3, freeTime: -4, goals: 2 }
+            outcome: >-
+              You learn exactly where your money goes (oat milk, mostly). It works — but keeping it
+              up is a second part-time job.
+          - id: c
+            text: Save whatever's left at the end of the month
+            quality: risky
+            tempting: true
+            effects: { adjust: { wants: 60 } }
+            outcome: >-
+              Turns out what's left at the end of the month is usually nothing. Somehow it always
+              is.
+            bias: { id: present-bias, resisted: false }
+          - id: d
+            text: No budget — you'll just feel it out
+            quality: costly
+            effects: { adjust: { wants: 120 }, stress: 2 }
+            outcome: >-
+              Feeling it out mostly feels like takeout. Your spending quietly creeps up $120 a month.
+        explanation: >-
+          A budget gives every dollar a job before the month starts. One popular starting split is
+          50/30/20: half for needs, 30% for wants and 20% for savings. If needs already take more
+          than half, start with a smaller savings amount and grow it. The key move is "pay yourself
+          first": an automatic transfer on payday, so saving doesn't depend on willpower.
+        whyItMatters:
+          text: >-
+            A 50/30/20 split of your {netMonthly} would be {needs} for needs, {wants} for wants and
+            {save} for savings. Your needs already take {player.essentials}, so starting with $100
+            and growing it is a realistic plan.
+          calc: budgetSplit
+          inputs: { netMonthly: player.netMonthlyIncome }
+          illustrative: false
+        takeaway: Pay yourself first, automatically.
+        review:
+          question: Which plan makes saving most likely to happen?
+          options:
+            - Save whatever is left at the end of the month
+            - An automatic transfer to savings on payday
+            - Saving only when you get a bonus
+          answer: An automatic transfer to savings on payday
+        elapse: 1
+
+      - id: ch1-e1-s3
+        title: The pre-checked box
+        concepts: [checking-vs-savings, overdraft-fees, pre-checked-add-ons, compound-interest]
+        difficulty: 2
+        setup: >-
+          At Riverton Bank, a friendly banker sets up your account on a tablet. "Standard Overdraft
+          Coverage" is already checked. The bank's savings account pays {locale.bankSavingsApy};
+          online banks are advertising around {locale.hysaApy}. The banker slides the tablet over:
+          "Just sign here."
+        choices:
+          - id: a
+            text: Uncheck overdraft coverage and open a high-yield savings account online
+            quality: best
+            setFlags: [hysa, overdraft-opt-out]
+            effects: { goals: 2 }
+            outcome: >-
+              If you ever try to spend money you don't have with your debit card, it'll just be
+              declined — no fee. And your savings now earn {locale.hysaApy} instead of
+              {locale.bankSavingsApy}.
+            darkPattern: { id: pre-checked-add-ons, resisted: true }
+          - id: b
+            text: Open checking and savings here, and link savings to cover any overdraft
+            quality: good
+            setFlags: [linked-savings]
+            outcome: >-
+              If checking ever runs short, the bank pulls from your savings instead of charging an
+              overdraft fee. Your savings won't earn much here, though.
+          - id: c
+            text: Just sign — keep everything in checking with the coverage on
+            quality: costly
+            tempting: true
+            effects: { toSavings: -100000 }
+            outcome: >-
+              Done in thirty seconds. All your money sits in checking, and the bank will happily
+              "cover" any shortfall — for a fee each time.
+            darkPattern: { id: pre-checked-add-ons, resisted: false }
+        explanation: >-
+          Checking is for spending; savings is for keeping. Keeping them apart makes it harder to
+          spend your cushion by accident, and a high-yield savings account pays far more interest.
+          Overdraft "coverage" sounds helpful, but each time it covers a purchase you can be charged
+          a fee. For everyday debit-card purchases and ATM withdrawals, banks need you to opt in
+          first, which is why the box was pre-checked.
+        whyItMatters:
+          text: >-
+            Starting with {balance} and adding {monthly} a month for {years} years, you'd have
+            {high} at {highApy} versus {low} at {lowApy}. That's {difference} more for the same
+            money, just by choosing where to keep it.
+          calc: savingsApy
+          inputs:
+            balance: player.savings
+            monthly: 100
+            highApy: locale.hysaApy
+            lowApy: locale.bankSavingsApy
+            years: 3
+          illustrative: true
+        takeaway: Keep spending money and saving money in separate accounts, and read every pre-checked box.
+        review:
+          question: What does overdraft coverage on a debit card usually mean?
+          options:
+            - Purchases are declined if you don't have the money
+            - The bank covers the purchase and charges you a fee
+            - The bank lends you money at 0% interest
+          answer: The bank covers the purchase and charges you a fee
+        sources:
+          - title: What are overdraft fees and how do they work?
+            publisher: Consumer Financial Protection Bureau
+            url: https://www.consumerfinance.gov/ask-cfpb/what-is-an-overdraft-fee-en-1053/
+        needsVerification: true
+        elapse: 1
+
+      - id: ch1-e1-s4
+        title: Subscription soup
+        concepts: [subscription-creep, free-trial-trap]
+        difficulty: 1
+        texts:
+          - { from: priya, text: 'ok so if we split StreamMax Ultimate it''s only $11 each!!' }
+          - { from: priya, text: '(it has the baking show)' }
+        setup: >-
+          You already pay {player.subscriptions} a month in subscriptions: music, cloud storage, two
+          streaming apps you forgot about and a meditation app whose "free trial" quietly became
+          $12.99 a month. Priya wants to add one more.
+        choices:
+          - id: a
+            text: Do a subscription audit — cancel what you don't use, then split StreamMax
+            quality: best
+            effects: { set: { subscriptions: 25 }, friends: 2 }
+            outcome: >-
+              Goodbye meditation app you never opened and the streaming service with one show you
+              liked in 2022. Hello baking show with Priya.
+          - id: b
+            text: Add StreamMax and keep everything — it's only $11
+            quality: costly
+            tempting: true
+            effects: { adjust: { subscriptions: 11 }, friends: 2 }
+            outcome: Now you have five ways to watch nothing. The charges keep rolling in quietly.
+          - id: c
+            text: Cancel everything, including the shared one
+            quality: good
+            effects: { set: { subscriptions: 0 }, friends: -4, freeTime: -2 }
+            outcome: >-
+              Maximum savings. Priya watches the baking show alone, loudly, through the wall.
+        explanation: >-
+          Subscriptions are designed to be easy to start and easy to forget. Each one feels small,
+          but they add up, and free trials often turn into paid plans automatically. A quick audit
+          every few months — list every recurring charge, cancel what you don't use — is one of
+          the easiest money wins there is. Keep what you actually enjoy.
+        whyItMatters:
+          text: >-
+            {monthly} a month in subscriptions is {perYear} a year and {total} over five years.
+            Saved at {rate} instead, it would grow to {ifSaved}.
+          calc: recurringCost
+          inputs:
+            monthly: { from: player.subscriptions, min: 25 }
+            years: 5
+            rate: locale.hysaApy
+          illustrative: true
+        takeaway: Small monthly charges are big yearly ones — audit them.
+        review:
+          question: Four subscriptions at $12 a month each cost about how much a year?
+          options:
+            - About $48
+            - About $144
+            - About $576
+          answer: About $576
+          explain: $12 × 4 = $48 a month, × 12 = $576 a year.
+        elapse: 3
+
+    hook:
+      texts:
+        - { from: kai, text: 'dude i just got the new phone for $0 DOWN 😎📱' }
+        - { from: kai, text: 'also have u heard of glimmer?? lux monroe says it pays u EARLY' }
+      text: Your own phone is looking pretty sad these days. And what's Glimmer?
+    teaser: 'Next: a cracked screen, a too-good app, and a text you shouldn''t tap.'
+
+  # ════════════════════════════════════════════════════════════
+  - id: ch1-e2
+    title: The Cushion
+    gapMonths: 0
+    scenes:
+      - id: ch1-e2-s1
+        title: Spiderweb
+        concepts: [emergency-fund, budgeting]
+        difficulty: 1
+        texts:
+          - { from: kai, text: 'just get the new one!! $0 down!! i did' }
+        setup: >-
+          Your phone slides off the bus seat and the screen shatters into a spiderweb. It still
+          works, mostly. A repair shop wants $129. A refurbished last-year model is $350. The newest
+          model is "$0 down, $41.62 a month for 24 months." You have {player.savings} in savings.
+        choices:
+          - id: a
+            text: Repair the screen for $129
+            quality: best
+            effects: { expense: 129 }
+            outcome: Good as new-ish. Nobody can tell, except you, and only in direct sunlight.
+          - id: b
+            text: Buy the $350 refurbished model
+            quality: good
+            effects: { expense: 350, wellbeing: 1 }
+            outcome: A solid upgrade for a third of the price of new.
+          - id: c
+            text: Get the new phone for $0 down
+            quality: risky
+            tempting: true
+            effects: { adjust: { otherNeeds: 42 }, wellbeing: 2 }
+            schedule: [{ event: phone-paid-off, inMonths: 24 }]
+            outcome: >-
+              It's beautiful. It's also a $999 phone and a new $42 bill every month for the next
+              two years.
+            bias: { id: present-bias, resisted: false }
+          - id: d
+            text: Buy the new phone outright with your savings
+            quality: costly
+            effects: { savings: -999, wellbeing: 2 }
+            outcome: >-
+              No monthly bill — but your emergency fund just became a phone.
+        explanation: >-
+          An emergency fund is for things that are urgent, necessary and unexpected: a broken-down
+          car, a medical bill, a lost job. A cracked screen that still works is annoying, not an
+          emergency. Before spending savings or signing up for a new monthly bill, ask: is this a
+          need or a want, and what's the cheapest way to fix the need? "$0 down" just means you pay
+          later.
+        whyItMatters:
+          text: >-
+            Your savings cover {monthsCovered} months of essentials ({essentials} a month). A
+            {goalMonths}-month cushion for you would be {goal}, so every dollar spent from savings
+            on wants pushes that goal further away.
+          calc: emergencyFund
+          timing: after
+          inputs:
+            essentials: player.essentials
+            savings: player.savings
+            perMonth: { from: player.autoSave, min: 25 }
+            goalMonths: locale.emergencyFundMonthsGoal
+          illustrative: false
+        takeaway: Emergencies are urgent, necessary and unexpected — everything else is a want.
+        review:
+          question: Which of these is a good use of an emergency fund?
+          options:
+            - Upgrading a phone that still works
+            - A surprise car repair you need to get to work
+            - Concert tickets that are about to sell out
+          answer: A surprise car repair you need to get to work
+        elapse: 2
+
+      - id: ch1-e2-s2
+        title: Why wait for payday?
+        concepts: [overdraft-fees, countdown-timer, payday-loans, subscription-creep, free-trial-trap]
+        difficulty: 2
+        texts:
+          - { from: lux, text: "Why wait for payday?? 💎 Glimmer Boost gets you up to $100 TODAY. No interest. No credit check. Just a tiny express fee. Link in bio!" }
+          - { from: glimmer, text: '⏳ Bonus offer ends in 09:59 — first month of Glimmer Plus FREE' }
+        setup: >-
+          Your favorite band just announced a show, and payday is five days away. Glimmer can send
+          you $100 now for a $4.99 "express fee." Glimmer Plus — $9.99 a month after the free
+          month — promises "unlimited Boosts." The countdown is ticking.
+        choices:
+          - id: a
+            text: Close the app — you'll buy a ticket on payday if any are left
+            quality: best
+            effects: { stress: -1 }
+            outcome: >-
+              The timer resets to 09:59 when you reopen the app the next day. Funny how that works.
+              You get a ticket on payday.
+            darkPattern: { id: countdown-timer, resisted: true }
+          - id: b
+            text: Boost $100 once, just this time
+            quality: risky
+            tempting: true
+            effects: { checking: 100, wellbeing: 2 }
+            setFlags: [glimmer-user]
+            schedule: [{ event: glimmer-repay-100, inMonths: 1 }]
+            outcome: >-
+              The concert is great. On payday, Glimmer takes $104.99 before you see a cent.
+            darkPattern: { id: countdown-timer, resisted: false }
+          - id: c
+            text: Start the free month of Glimmer Plus for unlimited Boosts
+            quality: costly
+            effects: { checking: 100, adjust: { subscriptions: 9.99 }, wellbeing: 2 }
+            setFlags: [glimmer-user]
+            schedule: [{ event: glimmer-repay-100, inMonths: 1 }]
+            outcome: >-
+              The free month ends quietly. The $9.99 charge does not. Neither does the habit of
+              borrowing from next week.
+            darkPattern: { id: free-trial-trap, resisted: false }
+        explanation: >-
+          Early-pay and cash-advance apps often say "no interest," but a flat fee on a short loan
+          can cost more than a high-interest credit card. To compare, turn the fee into an APR: the
+          yearly rate it would be if you kept doing it. Countdown timers and "free" first months
+          are there to rush you past that math. If an offer can't wait one day, it's not for you.
+        whyItMatters:
+          text: >-
+            A {fee} fee to get {amount} five days early works out to an APR of about {apr}. Do it
+            every month and that's {yearly} a year for money that was already yours.
+          calc: flatFeeApr
+          inputs: { fee: 4.99, amount: 100, days: 5, timesPerYear: 12 }
+          illustrative: true
+        takeaway: If an offer can't wait a day, it isn't for you.
+        review:
+          question: A $5 fee to borrow $100 for 5 days is roughly what APR?
+          options:
+            - About 5%
+            - About 36%
+            - About 365%
+          answer: About 365%
+          explain: 5% for 5 days, stretched over 365 days, is about 365% a year.
+        elapse: 2
+
+      - id: ch1-e2-s3
+        title: Dee's Rule #1
+        concepts: [emergency-fund, checking-vs-savings]
+        difficulty: 2
+        texts:
+          - { from: dee, text: "Dee's Rule #1: before anything fancy, one month of essentials in the bank." }
+          - { from: dee, text: "I'll put $50 in when you hit it. Don't tell your cousins." }
+        setup: >-
+          Your essentials — rent, groceries, phone, transit — come to {player.essentials} a month.
+          You have {player.savings} in savings and you move {player.autoSave} a month into it
+          automatically. How do you take on Aunt Dee's challenge?
+        choices:
+          - id: a
+            text: Raise your automatic savings by $75 a month and keep it in high-yield savings
+            quality: best
+            effects: { adjust: { autoSave: 75 }, family: 3 }
+            setFlags: [hysa]
+            outcome: >-
+              You barely notice the extra $75. Your savings account notices a lot.
+          - id: b
+            text: Pick up a Saturday shift and save every dollar of it
+            quality: good
+            effects: { adjust: { grossAnnualIncome: 3500, autoSave: 200 }, freeTime: -8, stress: 3, family: 3 }
+            outcome: >-
+              Saturdays are gone, but your savings grow fast. You're tired in a satisfying way.
+          - id: c
+            text: Keep the savings in checking so it's easy to reach
+            quality: risky
+            effects: { toSavings: -100000 }
+            outcome: >-
+              Easy to reach turns out to mean easy to spend. The "fund" blends into your everyday
+              money.
+          - id: d
+            text: You'll start after the holidays
+            quality: costly
+            tempting: true
+            effects: { family: -1 }
+            outcome: After the holidays, there's another reason to wait. There always is.
+            bias: { id: present-bias, resisted: false }
+        explanation: >-
+          An emergency fund turns a surprise bill into an inconvenience instead of debt. A common
+          first goal is one month of essential expenses, then three to six months. Keep it in a
+          separate savings account — ideally high-yield — so it earns interest and isn't mixed with
+          spending money. Automate it so it grows even in months you forget.
+        whyItMatters:
+          text: >-
+            Your one-month goal is {goal}. You have {savings}. At {perMonth} a month, you'll get
+            there in about {monthsToGoal} months.
+          variants:
+            - when: { var: player.emergencyMonths, gte: 1 }
+              text: >-
+                You've already passed the one-month goal of {goal} — you have {savings}. At
+                {perMonth} a month, three months of essentials is the next stop.
+          calc: emergencyFund
+          inputs:
+            essentials: player.essentials
+            savings: player.savings
+            perMonth: { from: player.autoSave, min: 25 }
+            goalMonths: 1
+          illustrative: false
+        takeaway: Build a cushion of one month of essentials first, then grow it.
+        review:
+          question: Where should an emergency fund usually live?
+          options:
+            - In your checking account
+            - In a separate savings account
+            - Invested in a single stock
+          answer: In a separate savings account
+        elapse: 3
+
+      - id: ch1-e2-s4
+        title: Unusual activity
+        concepts: [phishing]
+        difficulty: 2
+        texts:
+          - { from: unknown, text: 'Riverton Bank ALERT: unusual sign-in detected. Verify within 30 min or your account will be LOCKED: rivert0n-bank-secure.co' }
+        setup: >-
+          You're halfway through a closing shift when the text comes in. The logo looks right. The
+          link looks almost right. You have {player.cash} across your accounts.
+        choices:
+          - id: a
+            text: Don't tap. Open your bank's app yourself, or call the number on your card
+            quality: best
+            effects: { stress: -1 }
+            outcome: >-
+              The bank's app shows nothing unusual. The rep says it's a common scam and thanks you
+              for checking.
+            darkPattern: { id: phishing, resisted: true }
+          - id: b
+            text: Tap and log in quickly — you don't want it locked
+            quality: costly
+            tempting: true
+            effects: { stress: 4 }
+            setFlags: [phished]
+            schedule: [{ event: phished-drain, inMonths: 1 }]
+            outcome: >-
+              The page looks like your bank's. It isn't. Someone now has your username and
+              password.
+            darkPattern: { id: phishing, resisted: false }
+          - id: c
+            text: Reply STOP so they leave you alone
+            quality: risky
+            effects: { stress: 1 }
+            setFlags: [scam-target]
+            outcome: >-
+              Replying tells the scammer your number is real and someone reads the texts. You get
+              more of them.
+            darkPattern: { id: phishing, resisted: false }
+        explanation: >-
+          Phishing messages pretend to be your bank to get your login. Red flags: urgency ("30
+          minutes!"), threats ("LOCKED"), and links with small misspellings, like a zero instead of
+          an "o." Real banks don't ask you to sign in from a text link. The safe move is always the
+          same: don't tap, don't reply, and contact the bank using an app or number you already
+          trust.
+        whyItMatters:
+          text: >-
+            If a scammer emptied {amount} from your account, that would be {shareOfSavings} of all
+            your cash and {monthsOfEssentials} months of essentials.
+          calc: shareOfCushion
+          inputs:
+            amount: 400
+            savings: { from: player.cash, min: 1 }
+            essentials: player.essentials
+          illustrative: true
+        takeaway: Never sign in from a link someone sent you — go to the bank yourself.
+        review:
+          question: You get a text from "your bank" with a link to verify your account. What should you do?
+          options:
+            - Tap the link quickly before the account locks
+            - Reply STOP
+            - Ignore the link and contact the bank through its app or the number on your card
+          answer: Ignore the link and contact the bank through its app or the number on your card
+        elapse: 2
+
+    hook:
+      texts:
+        - { from: marcus, text: 'Okafor wants to see you tomorrow 👀' }
+        - { from: marcus, text: 'bring your A game. and come find me after, I have THOUGHTS about tax brackets' }
+      text: A meeting with the manager. That's either very good or very bad.
+    teaser: 'Next: a raise, and Marcus''s theory about why you shouldn''t take it.'
+
+  # ════════════════════════════════════════════════════════════
+  - id: ch1-e3
+    title: Moving Up
+    gapMonths: 3
+    scenes:
+      - id: ch1-e3-s1
+        title: The bracket myth
+        concepts: [gross-vs-net, marginal-tax]
+        difficulty: 2
+        texts:
+          - { from: manager, text: 'You''re reliable and the regulars like you. Shift lead? +$3/hour.' }
+          - { from: marcus, text: "DON'T. it bumps you into a higher bracket and you take home LESS. happened to my cousin" }
+        setup: >-
+          Shift lead means about $5,300 more a year, a key to the shop and a little more
+          responsibility. Marcus is very sure about his cousin. You currently earn
+          {player.grossAnnualIncome} a year.
+        choices:
+          - id: a
+            text: Take it, and ask to keep your Tuesday nights free for a class
+            quality: best
+            effects: { adjust: { grossAnnualIncome: 5300 }, goals: 4 }
+            setFlags: [shift-lead]
+            outcome: Ms. Okafor says yes to both. Asking cost you nothing.
+          - id: b
+            text: Take it as offered
+            quality: good
+            effects: { adjust: { grossAnnualIncome: 5300 }, freeTime: -3 }
+            setFlags: [shift-lead]
+            outcome: You get the raise and the keys. Tuesday nights are now inventory nights.
+          - id: c
+            text: Turn it down — Marcus might be right about the bracket
+            quality: costly
+            tempting: true
+            effects: { goals: -3 }
+            outcome: >-
+              Ms. Okafor gives the job to someone else. Marcus nods wisely. Marcus is wrong.
+        explanation: >-
+          US income tax is marginal: each bracket's rate applies only to the dollars inside that
+          bracket. Moving into a higher bracket taxes only the new dollars above the line at the
+          higher rate, never your whole income. So a raise always means more take-home pay, even
+          if you keep a little less of each new dollar. Your average tax rate rises only slightly.
+        whyItMatters:
+          text: >-
+            On a {raise} raise, your top dollars are taxed at {marginalRate} federal, plus payroll
+            and state tax. You'd keep about {extraNetYear} of it — {extraNetMonthly} more every
+            month. A raise never lowers your take-home pay.
+          calc: raiseAfterTax
+          timing: before
+          inputs: { grossAnnual: player.grossAnnualIncome, raise: 5300 }
+          illustrative: true
+        takeaway: A higher tax bracket only touches the new dollars — take the raise.
+        review:
+          question: A raise moves you into a higher tax bracket. What happens?
+          options:
+            - All your income is taxed at the higher rate
+            - Only the dollars above the bracket line are taxed at the higher rate
+            - You take home less money than before
+          answer: Only the dollars above the bracket line are taxed at the higher rate
+        elapse: 1
+
+      - id: ch1-e3-s2
+        title: Raise day
+        when: { flag: shift-lead }
+        concepts: [budgeting, lifestyle-inflation, compound-interest]
+        difficulty: 2
+        texts:
+          - { from: kai, text: 'ok SHIFT LEAD 👑 time to upgrade ur life' }
+          - { from: dee, text: "Proud of you. Now — what's the raise's job?" }
+        setup: >-
+          Your take-home pay is now about {player.netMonthlyIncome} a month, roughly $370 more than
+          before. Kai has a list of upgrades. Aunt Dee has a question.
+        choices:
+          - id: a
+            text: Send half the raise to savings automatically and enjoy the other half
+            quality: best
+            effects: { adjust: { autoSave: 180, wants: 100 }, wellbeing: 2 }
+            outcome: >-
+              You get a little nicer life and a lot faster savings. Neither feels like a sacrifice.
+            bias: { id: present-bias, resisted: true }
+          - id: b
+            text: Treat yourself — better clothes, more takeout, the fancy gym
+            quality: costly
+            tempting: true
+            effects: { adjust: { wants: 250, subscriptions: 40 }, wellbeing: 3 }
+            outcome: >-
+              Three months later, the new normal feels normal — and you're saving exactly what you
+              saved before the raise.
+            bias: { id: present-bias, resisted: false }
+          - id: c
+            text: Save all of it — live exactly like before
+            quality: good
+            effects: { adjust: { autoSave: 350 }, friends: -2 }
+            outcome: >-
+              Your savings take off. Kai calls you "grandpa" twice, affectionately.
+        explanation: >-
+          Lifestyle inflation is when spending rises as fast as income, so raises never make you
+          better off. A simple fix: decide in advance what share of every raise goes to savings —
+          half is a common rule — and automate it right away, before the new money feels normal.
+          You still get to enjoy part of the raise, and your future self gets the rest.
+        whyItMatters:
+          text: >-
+            Saving {monthly} a month at {rate} for {years} years grows to {futureValue} — {growth}
+            of that is interest you never worked for.
+          calc: compoundGrowth
+          inputs: { principal: 0, monthly: 180, rate: locale.hysaApy, years: 5 }
+          illustrative: true
+        takeaway: Give every raise a job before it becomes your new normal.
+        review:
+          question: What is lifestyle inflation?
+          options:
+            - Prices rising across the economy
+            - Spending rising as fast as your income
+            - Your rent going up each year
+          answer: Spending rising as fast as your income
+        elapse: 3
+
+      - id: ch1-e3-s3a
+        title: Fee, fee, fee
+        when: { var: player.overdrafts, gte: 1 }
+        concepts: [overdraft-fees]
+        difficulty: 2
+        texts:
+          - { from: bank, text: 'Your account was overdrawn. An overdraft fee has been charged.' }
+        setup: >-
+          You've been charged {player.overdrafts} overdraft fee(s) so far — {player.feesPaid} in
+          total, mostly for small purchases that went through when your balance was a little short.
+          What now?
+        choices:
+          - id: a
+            text: Call the bank, ask them to refund the latest fee, and turn off overdraft coverage
+            quality: best
+            effects: { checking: 35, stress: -3 }
+            setFlags: [overdraft-opt-out]
+            outcome: >-
+              The rep refunds one fee as a "courtesy." From now on, a short balance means a
+              declined card, not a $35 charge.
+          - id: b
+            text: Link your savings so it covers any shortfall
+            quality: good
+            setFlags: [linked-savings]
+            effects: { stress: -2 }
+            outcome: Next time checking runs short, savings steps in instead of a fee.
+          - id: c
+            text: Pay it and move on — fees are part of banking
+            quality: costly
+            tempting: true
+            effects: { stress: 1 }
+            outcome: The fees keep showing up, a few at a time.
+        explanation: >-
+          Overdraft fees are flat charges for small shortfalls, so they're extremely expensive for
+          what they are. Three fixes: turn off overdraft coverage for debit purchases so they're
+          declined instead, link savings to cover shortfalls, and set a low-balance alert. Banks
+          often refund a fee if you ask politely, especially the first time. It never hurts to ask.
+        whyItMatters:
+          text: >-
+            One {fee} fee on a {amount} shortfall, paid back in {days} days, is like borrowing at
+            about {apr} APR. Three a year cost {yearly}.
+          calc: flatFeeApr
+          inputs: { fee: locale.overdraftFee, amount: 20, days: 3, timesPerYear: 3 }
+          illustrative: true
+        takeaway: Overdraft fees are the priciest loan you never meant to take — turn them off.
+        review:
+          question: Which of these stops overdraft fees on debit-card purchases?
+          options:
+            - Opting out of overdraft coverage
+            - Using the card more often
+            - Paying the fee right away
+          answer: Opting out of overdraft coverage
+        sources:
+          - title: What are overdraft fees and how do they work?
+            publisher: Consumer Financial Protection Bureau
+            url: https://www.consumerfinance.gov/ask-cfpb/what-is-an-overdraft-fee-en-1053/
+        needsVerification: true
+        elapse: 2
+
+      - id: ch1-e3-s3b
+        title: Priya's $105 mistake
+        when: { var: player.overdrafts, lt: 1 }
+        concepts: [overdraft-fees]
+        difficulty: 2
+        texts:
+          - { from: priya, text: 'I just got charged $105 in overdraft fees for being $20 short. HOW' }
+          - { from: priya, text: 'a $4 coffee, an $11 lunch and parking. three fees. I want to scream' }
+        setup: >-
+          Priya is pacing the kitchen. Three small purchases went through while her account was a
+          little short, and each one came with a fee. She wants your advice.
+        choices:
+          - id: a
+            text: Tell her to call, ask for a refund, and turn off overdraft coverage
+            quality: best
+            effects: { friends: 4 }
+            outcome: >-
+              The bank refunds two of the three fees. Priya makes you a celebratory grilled cheese.
+          - id: b
+            text: Suggest a low-balance alert and linking her savings
+            quality: good
+            effects: { friends: 3 }
+            outcome: >-
+              Priya sets up both. She doesn't get the fees back, but it won't happen like that
+              again.
+          - id: c
+            text: '"That''s just how banks work, sadly."'
+            quality: risky
+            tempting: true
+            effects: { friends: -1 }
+            outcome: Priya pays all three fees. Two more show up next month.
+        explanation: >-
+          Overdraft fees are flat charges for small shortfalls, so they're extremely expensive for
+          what they are. Three fixes: turn off overdraft coverage for debit purchases so they're
+          declined instead, link savings to cover shortfalls, and set a low-balance alert. Banks
+          often refund a fee if you ask politely, especially the first time. It never hurts to ask.
+        whyItMatters:
+          text: >-
+            One {fee} fee on a {amount} shortfall, paid back in {days} days, is like borrowing at
+            about {apr} APR. Three a year cost {yearly}.
+          calc: flatFeeApr
+          inputs: { fee: locale.overdraftFee, amount: 20, days: 3, timesPerYear: 3 }
+          illustrative: true
+        takeaway: Overdraft fees are the priciest loan you never meant to take — turn them off.
+        review:
+          question: Your friend got three overdraft fees in one day. What's the best first step?
+          options:
+            - Close the account immediately
+            - Call the bank, ask for a refund and opt out of overdraft coverage
+            - Wait and see if it happens again
+          answer: Call the bank, ask for a refund and opt out of overdraft coverage
+        sources:
+          - title: What are overdraft fees and how do they work?
+            publisher: Consumer Financial Protection Bureau
+            url: https://www.consumerfinance.gov/ask-cfpb/what-is-an-overdraft-fee-en-1053/
+        needsVerification: true
+        elapse: 2
+
+      - id: ch1-e3-s4
+        title: Beach trip
+        concepts: [budgeting, emergency-fund, bnpl]
+        difficulty: 2
+        texts:
+          - { from: kai, text: 'BEACH TRIP 🏖️ march. everyone''s in. like $900 total. u in???' }
+          - { from: glimmer, text: 'Split any trip into 4 easy payments with Glimmer Pay-in-4 ✨' }
+        setup: >-
+          The group chat is a wall of palm-tree emojis. The trip is four months away and costs
+          about $900. You have {player.savings} in savings and about {player.surplus} left over each
+          month after bills and saving.
+        choices:
+          - id: a
+            text: Say yes, and set aside $225 a month for it until March
+            quality: best
+            effects: { adjust: { wants: -225 }, stress: -1 }
+            schedule: [{ event: trip-funded, inMonths: 4 }]
+            outcome: >-
+              Fewer takeout nights for a few months, and a trip that's fully paid before you
+              leave.
+          - id: b
+            text: Say yes and split it into four payments with Glimmer Pay-in-4
+            quality: risky
+            tempting: true
+            effects: { friends: 8, wellbeing: 3, adjust: { otherNeeds: 235 } }
+            setFlags: [glimmer-user]
+            schedule: [{ event: bnpl-trip-done, inMonths: 4 }]
+            outcome: >-
+              The trip is amazing. The four payments — plus a $40 late fee when one lands the day
+              before payday — follow you home.
+          - id: c
+            text: Skip it and host a beach-themed night at home instead
+            quality: good
+            effects: { friends: -2, expense: 30, freeTime: 2 }
+            outcome: >-
+              Everyone sends you sunset photos. Your living room has a kiddie pool. It's a
+              trade-off, and that's okay.
+          - id: d
+            text: Say yes and pay for it from your emergency fund
+            quality: risky
+            effects: { savings: -900, friends: 8, wellbeing: 3 }
+            outcome: >-
+              It's a great trip. Your cushion, though, is now mostly sand.
+        explanation: >-
+          Big, known expenses like trips, holidays or car registration aren't emergencies — they're
+          predictable. The trick is a "sinking fund": divide the cost by the months until you need
+          it and save that amount each month. Then you can say yes without borrowing or draining
+          your emergency fund. Buy-now-pay-later splits the cost too, but it's still borrowing, and
+          missed payments can add fees.
+        whyItMatters:
+          text: >-
+            Saving {perMonth} a month for {months} months covers the {goal} trip with no
+            borrowing — about {perWeek} a week.
+          calc: sinkingFund
+          inputs: { goal: 900, months: 4 }
+          illustrative: true
+        takeaway: Plan for the predictable so the emergency fund stays for emergencies.
+        review:
+          question: You want to take a $600 trip in six months. What's a sinking fund plan?
+          options:
+            - Put it on a card and pay it off later
+            - Save $100 a month starting now
+            - Take it from your emergency fund
+          answer: Save $100 a month starting now
+        elapse: 3
+
+      - id: ch1-e3-s5
+        title: The renewal letter
+        concepts: [budgeting, anchoring]
+        difficulty: 2
+        texts:
+          - { from: priya, text: 'did you see the letter?? +$60/month 😩' }
+          - { from: priya, text: 'the building next door is $40 LESS than we pay now for the same layout' }
+        setup: >-
+          Your landlord's renewal letter says your share of rent goes from {player.rent} to $60
+          more. You've paid on time every month for two years. You have a week to sign.
+        choices:
+          - id: a
+            text: Reply politely, mention your record and the cheaper building, and ask for +$25
+            quality: best
+            effects: { adjust: { rent: 25 }, goals: 2 }
+            outcome: >-
+              The landlord would rather keep a reliable tenant than find a new one. You settle on
+              +$25.
+            bias: { id: anchoring, resisted: true }
+          - id: b
+            text: Sign right away — $60 is what they asked for
+            quality: risky
+            tempting: true
+            effects: { adjust: { rent: 60 } }
+            outcome: Easy. Also $35 a month more than it needed to be.
+            bias: { id: anchoring, resisted: false }
+          - id: c
+            text: Move next door, paying $300 in moving costs
+            quality: good
+            effects: { adjust: { rent: -40 }, expense: 300, stress: 4 }
+            outcome: >-
+              One exhausting weekend and a borrowed van later, your rent is lower than it was.
+        explanation: >-
+          The first number you hear becomes an "anchor" that shapes what feels reasonable. A
+          landlord's first offer, a car's sticker price and a salary offer are all starting points,
+          not final answers. Look up what similar options cost, then make a polite counteroffer
+          with reasons. Keeping a good tenant is worth something to a landlord, and asking is free.
+        whyItMatters:
+          text: >-
+            Talking the increase down by {monthly} a month saves {perYear} a year and {total} over
+            a {years}-year stay.
+          calc: recurringCost
+          inputs: { monthly: 35, years: 3, rate: 0 }
+          illustrative: true
+        takeaway: The first number is an opening, not an answer — counter with reasons.
+        review:
+          question: A landlord's first renewal offer is best treated as what?
+          options:
+            - The final price
+            - A starting point you can negotiate
+            - A sign you have to move
+          answer: A starting point you can negotiate
+        elapse: 3
+
+    hook:
+      texts:
+        - { from: dee, text: "Can you come by Sunday? Nothing scary." }
+        - { from: dee, text: 'Well. A little scary.' }
+      text: Aunt Dee never asks for anything. And at work, the schedule for next month hasn't been posted yet.
+    teaser: 'Next: the slow season hits, and your cushion gets tested.'
+
+  # ════════════════════════════════════════════════════════════
+  - id: ch1-e4
+    title: The Test
+    gapMonths: 4
+    scenes:
+      - id: ch1-e4-s1
+        title: Slow season
+        concepts: [emergency-fund, gross-vs-net]
+        difficulty: 3
+        texts:
+          - { from: manager, text: "Slow season. Everyone's hours are cut by a third for the next three months. I'm sorry — I fought it." }
+        setup: >-
+          Your paychecks are about to shrink by a third for three months. You have
+          {player.savings} in savings, which covers {player.emergencyMonths} months of essentials.
+          How do you get through it?
+        choices:
+          - id: a
+            text: Lean on your emergency fund and trim wants by $100 a month
+            quality: best
+            effects: { adjust: { grossAnnualIncome: -8000, wants: -100 }, stress: 2 }
+            schedule: [{ event: hours-restored, inMonths: 3 }]
+            outcome: >-
+              It's tight, but nothing breaks. This is exactly what the cushion was for.
+          - id: b
+            text: Bridge it with Glimmer Boosts every payday
+            quality: costly
+            tempting: true
+            effects: { adjust: { grossAnnualIncome: -8000 }, expense: 60, stress: 4 }
+            setFlags: [glimmer-user]
+            schedule: [{ event: hours-restored, inMonths: 3 }]
+            outcome: >-
+              Every payday starts $100 in the hole, plus fees. Three months later you're still
+              catching up.
+          - id: c
+            text: Pick up delivery shifts at night
+            quality: good
+            effects: { adjust: { grossAnnualIncome: -4000 }, freeTime: -8, health: -4 }
+            schedule: [{ event: hours-restored-gig, inMonths: 3 }]
+            outcome: >-
+              The extra shifts cover half the gap. You learn every shortcut in Riverton and how
+              little sleep you can run on.
+          - id: d
+            text: Skip a few bills and catch up later
+            quality: costly
+            effects: { adjust: { grossAnnualIncome: -8000 }, expense: 75, stress: 6, creditScore: -40 }
+            schedule: [{ event: hours-restored, inMonths: 3 }]
+            outcome: >-
+              Late fees pile on, and one bill gets reported late. "Later" turns out to be expensive.
+        explanation: >-
+          Income drops are the most common reason people need an emergency fund. With a cushion,
+          you can cover the gap calmly and trim spending for a while. Without one, people turn to
+          fees, high-interest debt or missed bills, which keep costing money after the crisis ends.
+          Extra work can help too, but it costs time and health, so it's a trade-off.
+        whyItMatters:
+          text: >-
+            Your savings of {savings} cover {monthsCovered} months of your {essentials} monthly
+            essentials. A three-month dip in pay is exactly the kind of storm a cushion is for.
+          calc: emergencyFund
+          timing: before
+          inputs:
+            essentials: player.essentials
+            savings: player.savings
+            perMonth: { from: player.autoSave, min: 25 }
+            goalMonths: 3
+          illustrative: false
+        takeaway: A cushion turns a pay cut into a tight month instead of a debt spiral.
+        review:
+          question: Your hours get cut for three months. What does an emergency fund let you do?
+          options:
+            - Cover the gap without borrowing or missing bills
+            - Earn more interest during the slow months
+            - Avoid having to budget
+          answer: Cover the gap without borrowing or missing bills
+        elapse: 3
+
+      - id: ch1-e4-s2
+        title: Sunday at Dee's
+        concepts: [emergency-fund, budgeting]
+        difficulty: 2
+        texts:
+          - { from: dee, text: "The transmission's shot. $600. I hate asking. I'd pay you back by summer." }
+        setup: >-
+          Aunt Dee has never asked you for anything. She's lent you her car, her couch and more
+          advice than you asked for. You have {player.savings} in savings.
+        choices:
+          - id: a
+            text: Lend her $600 and write the payback plan down together
+            quality: good
+            tempting: true
+            effects: { savings: -600, family: 8 }
+            schedule: [{ event: dee-repays, inMonths: 5 }]
+            outcome: >-
+              Dee insists on writing it on an index card and signing it. "Rule #4," she says.
+              "Write it down. Love doesn't mean vague."
+          - id: b
+            text: Give her $250 as a gift — and help her compare repair quotes
+            quality: best
+            effects: { expense: 250, family: 7 }
+            outcome: >-
+              The second shop quotes $420. Your $250 and her savings cover it. "Who taught you
+              to shop around?" she asks. You point at her.
+          - id: c
+            text: Say no kindly and offer to drive her to work instead
+            quality: good
+            effects: { family: -2, freeTime: -3 }
+            outcome: >-
+              She understands. Mostly. The rides turn into the best conversations you've had in
+              years.
+        explanation: >-
+          Lending money to family is about relationships as much as money. A good rule: only lend
+          what you could afford to never get back, and write down the amount and plan so nobody
+          has to guess. Sometimes a smaller gift, or helping in another way, protects both your
+          savings and the relationship. There's no single right answer here.
+        whyItMatters:
+          text: >-
+            {amount} is {shareOfSavings} of your savings and {monthsOfEssentials} months of
+            essentials. Lend only what you could live without if it never came back.
+          calc: shareOfCushion
+          timing: before
+          inputs:
+            amount: 600
+            savings: { from: player.savings, min: 1 }
+            essentials: player.essentials
+          illustrative: false
+        takeaway: Only lend what you could afford to give, and write it down.
+        review:
+          question: What's a good rule before lending money to a friend or relative?
+          options:
+            - Lend whatever they ask so they don't feel bad
+            - Only lend what you could afford to never get back
+            - Never help family with money
+          answer: Only lend what you could afford to never get back
+        elapse: 2
+
+      - id: ch1-e4-s3
+        title: Guaranteed 12%
+        concepts: [guaranteed-returns, checking-vs-savings, fake-scarcity, herding]
+        difficulty: 3
+        texts:
+          - { from: lux, text: "Banks pay you {locale.bankSavingsApy}. 😴 Glimmer Vault pays a GUARANTEED 12%. Only 3 spots left at this rate! 💎" }
+          - { from: kai, text: "i'm in for $500 lol. comments say ppl already made $300 🚀" }
+        setup: >-
+          Lux Monroe is live, and the comments are a waterfall of rocket emojis. Glimmer Vault
+          promises a guaranteed 12% a year. You have {player.savings} in savings.
+        choices:
+          - id: a
+            text: Skip it — and check whether Glimmer Vault is even insured or registered
+            quality: best
+            effects: { goals: 2 }
+            outcome: >-
+              It isn't a bank, and the deposits aren't insured. The fine print says returns are
+              "targeted," not guaranteed. You close the stream.
+            darkPattern: { id: fake-scarcity, resisted: true }
+            bias: { id: herding, resisted: true }
+          - id: b
+            text: Put in $200 "just to test it"
+            quality: risky
+            tempting: true
+            effects: { savings: -200 }
+            setFlags: [vault]
+            schedule: [{ event: vault-frozen, inMonths: 4 }]
+            outcome: >-
+              The app shows your $200 growing every day. It's very satisfying to watch.
+            bias: { id: herding, resisted: false }
+          - id: c
+            text: Move your whole emergency fund in — 12% beats anything
+            quality: costly
+            effects: { loseSavings: 1 }
+            setFlags: [vault]
+            schedule: [{ event: vault-frozen, inMonths: 4 }]
+            outcome: >-
+              Your entire cushion is now a number in an app. The number goes up every day. For now.
+            darkPattern: { id: fake-scarcity, resisted: false }
+        explanation: >-
+          Real investments that can earn a lot can also lose a lot; that's the trade-off between
+          risk and return. Anyone promising high returns with no risk is either mistaken or lying.
+          Bank savings are protected by FDIC insurance if a bank fails, but many money apps aren't
+          banks. Red flags: "guaranteed," "limited spots," pressure to hurry and crowds of comments
+          bragging about gains.
+        whyItMatters:
+          text: >-
+            Putting {amount} into an uninsured app risks {shareOfSavings} of your savings —
+            {monthsOfEssentials} months of essentials — for a promise nobody can keep.
+          calc: shareOfCushion
+          timing: before
+          inputs:
+            amount: { from: player.savings, min: 200 }
+            savings: { from: player.savings, min: 1 }
+            essentials: player.essentials
+          illustrative: false
+        takeaway: '"Guaranteed" plus "high returns" means walk away.'
+        review:
+          question: An app promises a guaranteed 12% a year with no risk. What's the best response?
+          options:
+            - Invest a little to test it
+            - Treat it as a red flag and check if it's insured and registered
+            - Invest quickly before the spots run out
+          answer: Treat it as a red flag and check if it's insured and registered
+        sources:
+          - title: Deposit Insurance
+            publisher: Federal Deposit Insurance Corporation
+            url: https://www.fdic.gov/resources/deposit-insurance
+        needsVerification: true
+        elapse: 3
+
+      - id: ch1-e4-s4
+        title: Priya's big news
+        boss: true
+        concepts: [budgeting, lifestyle-inflation, emergency-fund]
+        difficulty: 3
+        texts:
+          - { from: priya, text: 'I got the residency program. IN CHICAGO 😭😭' }
+          - { from: priya, text: "lease is up in 2 months. I'm so sorry. I'll still send you baking show spoilers" }
+        setup: >-
+          You're happy for her and a little panicked for you. Your share of rent is {player.rent}
+          and you take home {player.netMonthlyIncome} a month. You need a plan before the lease
+          ends. This one will shape the next few years.
+        choices:
+          - id: a
+            text: Find a new roommate and keep the apartment
+            quality: best
+            effects: { stress: 3, friends: 2 }
+            outcome: >-
+              Three awkward interviews later you find Sam, a quiet grad student who owns a label
+              maker. Rent stays the same.
+          - id: b
+            text: Rent a studio by yourself
+            quality: risky
+            tempting: true
+            effects: { adjust: { rent: 450 }, wellbeing: 3, stress: -2 }
+            outcome: >-
+              Your own place! Your own rules! Your own $450-a-month-more rent.
+          - id: c
+            text: Move in with Kai
+            quality: risky
+            effects: { adjust: { rent: -100 }, friends: 5, stress: 4 }
+            schedule: [{ event: kai-short-rent, inMonths: 2 }]
+            outcome: >-
+              Cheaper rent, constant fun and a roommate who is three Glimmer payments behind.
+          - id: d
+            text: Move back home for a year and save hard
+            quality: good
+            when: { flag: family-safety-net }
+            effects: { set: { rent: 150 }, adjust: { autoSave: 300 }, freeTime: -2, goals: 3, friends: -2 }
+            outcome: >-
+              Your old bedroom still has the glow-in-the-dark stars. Your savings will be very
+              glad you came.
+        explanation: >-
+          Housing is usually your biggest bill, so it decides how much room is left for everything
+          else. A common guideline is to keep housing around 30% of income or less. Roommates,
+          living with family or a slightly smaller place can free up hundreds a month. More space
+          and privacy are worth something too — just choose them knowing what they cost.
+        whyItMatters:
+          text: >-
+            Rent now takes {share} of your take-home pay, leaving {leftover} a month for everything
+            else. A common guideline is about {locale.housingShareGuideline} or less, which keeps
+            room for saving.
+          calc: rentBurden
+          inputs: { rent: player.rent, netMonthly: player.netMonthlyIncome }
+          illustrative: false
+        takeaway: Your rent decides your budget — choose it like it's the biggest bill you have.
+        review:
+          question: Why does the rent you choose matter so much for saving?
+          options:
+            - It's usually your biggest bill, so it sets how much is left
+            - Rent always goes down over time
+            - Rent counts as savings
+          answer: It's usually your biggest bill, so it sets how much is left
+        elapse: 3
+
+    hook:
+      texts:
+        - { from: kai, text: 'so… quick q' }
+        - { from: kai, text: "what's an APR and why is mine 29.99%" }
+      text: Kai's credit card statement just arrived. So did a shiny card offer in your mailbox.
+    teaser: 'Chapter 2: Credit — how cards really work, and the trap hidden in the minimum payment.'
+
+interludes: []

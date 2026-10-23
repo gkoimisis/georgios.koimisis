@@ -1,0 +1,342 @@
+# The concept map. `chapters` = where each concept is meant to be taught.
+# The validator enforces coverage (3+ scenes, 2+ contexts) once all listed chapters exist.
+concepts:
+  # ── Chapter 1: First Paycheck ─────────────────────────────
+  - id: gross-vs-net
+    name: Gross vs. net pay
+    kind: concept
+    chapters: [1, 3]
+    summary: Gross pay is what you earn; net pay is what lands after taxes and withholding.
+  - id: budgeting
+    name: Budgeting
+    kind: concept
+    chapters: [1, 4]
+    summary: Give every dollar a job before the month starts — needs, wants and savings.
+  - id: emergency-fund
+    name: Emergency fund
+    kind: concept
+    chapters: [1, 6]
+    summary: Cash set aside for surprises, so a bad week doesn't turn into debt.
+  - id: checking-vs-savings
+    name: Checking vs. savings
+    kind: concept
+    chapters: [1]
+    summary: Checking is for spending, savings is for keeping — and where you keep it changes what it earns.
+  - id: overdraft-fees
+    name: Overdraft and fees
+    kind: concept
+    chapters: [1, 2]
+    summary: Small fees on small shortfalls can cost more than almost any loan.
+  - id: subscription-creep
+    name: Subscription creep
+    kind: concept
+    chapters: [1, 4]
+    summary: Small monthly charges stack up quietly into big yearly ones.
+
+  # ── Chapter 2: Credit ─────────────────────────────────────
+  - id: how-cards-work
+    name: How credit cards work
+    kind: concept
+    chapters: [2]
+    summary: Pay the full statement balance and a card costs nothing; carry a balance and interest starts.
+  - id: credit-card-apr
+    name: APR
+    kind: concept
+    chapters: [2]
+    summary: The yearly interest rate on borrowed money, charged monthly on what you carry.
+  - id: minimum-payment
+    name: The minimum-payment trap
+    kind: concept
+    chapters: [2]
+    summary: Minimum payments are designed to keep you paying for years.
+  - id: credit-scores
+    name: Credit scores and reports
+    kind: concept
+    chapters: [2, 7]
+    summary: Your score mostly reflects on-time payments and how much of your limit you use.
+  - id: bnpl
+    name: Buy now, pay later
+    kind: concept
+    chapters: [2]
+    summary: Splitting a purchase into installments is still borrowing.
+  - id: payday-loans
+    name: Payday loans
+    kind: concept
+    chapters: [2]
+    summary: Short loans with flat fees that add up to extreme APRs.
+
+  # ── Chapter 3: Work & School ──────────────────────────────
+  - id: student-loans
+    name: Student loans
+    kind: concept
+    chapters: [3]
+    summary: Interest can grow while you're in school; repayment plans change the monthly bill and the total.
+  - id: salary-negotiation
+    name: Salary negotiation
+    kind: concept
+    chapters: [3]
+    summary: A raise at the start compounds through every future raise.
+  - id: opportunity-cost
+    name: Opportunity cost
+    kind: concept
+    chapters: [3, 4]
+    summary: The real price of a choice is the best thing you gave up.
+  - id: employer-match
+    name: Benefits and the 401(k) match
+    kind: concept
+    chapters: [3, 5]
+    summary: An employer match is part of your pay — skipping it leaves money on the table.
+  - id: marginal-tax
+    name: Marginal vs. average tax rates
+    kind: concept
+    chapters: [3]
+    summary: A higher bracket only taxes the dollars above the line, never your whole income.
+  - id: tax-refunds
+    name: Refunds and withholding
+    kind: concept
+    chapters: [3]
+    summary: A refund is your own money coming back, not a bonus.
+  - id: deductions-vs-credits
+    name: Deductions vs. credits
+    kind: concept
+    chapters: [3]
+    summary: A deduction lowers taxable income; a credit lowers the tax itself.
+
+  # ── Chapter 4: Big Purchases ──────────────────────────────
+  - id: total-cost-of-ownership
+    name: Total cost of a car
+    kind: concept
+    chapters: [4]
+    summary: The sticker price is just the start — add insurance, fuel, repairs and interest.
+  - id: loan-term
+    name: Loan term vs. total interest
+    kind: concept
+    chapters: [4, 7]
+    summary: Longer loans mean smaller payments and more total interest.
+  - id: new-vs-used
+    name: New vs. used
+    kind: concept
+    chapters: [4]
+    summary: New things lose value fastest in their first years.
+  - id: rent-vs-buy
+    name: Renting vs. buying
+    kind: concept
+    chapters: [4, 7]
+    summary: Buying isn't always better; it depends on time, costs and flexibility.
+  - id: lifestyle-inflation
+    name: Lifestyle inflation
+    kind: concept
+    chapters: [4]
+    summary: When spending rises as fast as income, raises never make you richer.
+
+  # ── Chapter 5: Investing ──────────────────────────────────
+  - id: compound-interest
+    name: Compound interest
+    kind: concept
+    chapters: [1, 5]
+    bigFive: true
+    summary: Growth on top of growth — time matters more than amount.
+  - id: inflation
+    name: Inflation and real returns
+    kind: concept
+    chapters: [1, 5]
+    bigFive: true
+    summary: Prices rise over time, so money that doesn't grow quietly shrinks.
+  - id: risk-return
+    name: Risk vs. return
+    kind: concept
+    chapters: [5]
+    summary: Higher expected returns come with bigger swings.
+  - id: diversification
+    name: Diversification
+    kind: concept
+    chapters: [5, 8]
+    bigFive: true
+    summary: Owning many things means no single failure sinks you.
+  - id: index-funds
+    name: Index funds vs. stock picking
+    kind: concept
+    chapters: [5]
+    summary: Most stock pickers trail a simple low-cost index fund over time.
+  - id: investment-fees
+    name: Fees over decades
+    kind: concept
+    chapters: [5]
+    summary: A 1% fee sounds small but can eat a big share of a lifetime's growth.
+  - id: tax-advantaged
+    name: Tax-advantaged accounts
+    kind: concept
+    chapters: [5, 8]
+    summary: 401(k)s and IRAs let investments grow with tax breaks.
+  - id: stay-the-course
+    name: Staying the course
+    kind: concept
+    chapters: [5, 8]
+    summary: Selling in a crash locks in the loss; time in the market heals most dips.
+
+  # ── Chapter 6: Protection ─────────────────────────────────
+  - id: health-insurance
+    name: Health insurance
+    kind: concept
+    chapters: [6]
+    summary: Premiums, deductibles and out-of-pocket maximums decide what care really costs.
+  - id: property-insurance
+    name: Renters and home insurance
+    kind: concept
+    chapters: [6]
+    summary: Cheap coverage for the things you can't afford to replace all at once.
+  - id: auto-insurance
+    name: Auto insurance
+    kind: concept
+    chapters: [6]
+    summary: Liability coverage protects you from the costs you cause others.
+  - id: disability-life-insurance
+    name: Disability and life insurance
+    kind: concept
+    chapters: [6]
+    summary: Insure your paycheck and the people who depend on it.
+  - id: deductibles-premiums
+    name: Deductibles vs. premiums
+    kind: concept
+    chapters: [6]
+    summary: A higher deductible lowers your premium — if you can cover the deductible.
+  - id: risk-pooling
+    name: Why risk pooling works
+    kind: concept
+    chapters: [6]
+    summary: Many people paying a little covers the few who have a disaster.
+  - id: identity-theft
+    name: Identity theft
+    kind: concept
+    chapters: [6]
+    summary: Freeze your credit and watch your accounts so thieves can't borrow in your name.
+
+  # ── Chapter 7: Home & Family ──────────────────────────────
+  - id: mortgages
+    name: Mortgages
+    kind: concept
+    chapters: [7]
+    bigFive: true
+    summary: Fixed vs. adjustable, 15 vs. 30 years, and points all change the total cost.
+  - id: bond-prices
+    name: Interest rates and bond prices
+    kind: concept
+    chapters: [5, 7]
+    bigFive: true
+    summary: When interest rates rise, existing bond prices fall.
+  - id: refinancing
+    name: Refinancing
+    kind: concept
+    chapters: [7]
+    summary: Swapping a loan for a cheaper one can pay off — after closing costs.
+  - id: education-saving
+    name: Saving for a child's education
+    kind: concept
+    chapters: [7]
+    summary: Starting early lets small amounts grow, often with tax breaks.
+  - id: money-talks
+    name: Money conversations with a partner
+    kind: concept
+    chapters: [7]
+    summary: Couples who talk about money early fight about it less later.
+
+  # ── Chapter 8: Retirement & Legacy ────────────────────────
+  - id: withdrawal-rates
+    name: Withdrawal rates
+    kind: concept
+    chapters: [8]
+    summary: How much you take out each year decides how long savings last.
+  - id: sequence-risk
+    name: Sequence-of-returns risk
+    kind: concept
+    chapters: [8]
+    summary: A crash right when you start withdrawals hurts more than one later.
+  - id: social-security-timing
+    name: When to claim Social Security
+    kind: concept
+    chapters: [8]
+    summary: Claiming later means bigger monthly checks for life.
+  - id: wills-beneficiaries
+    name: Wills and beneficiaries
+    kind: concept
+    chapters: [8]
+    summary: A few forms decide who gets what — and save your family months of hassle.
+
+  # ── Threads: scams and dark patterns ──────────────────────
+  - id: phishing
+    name: Phishing
+    kind: scam
+    chapters: [1, 6, 8]
+    summary: Fake messages that pretend to be your bank to steal your login.
+  - id: guaranteed-returns
+    name: '"Guaranteed returns"'
+    kind: scam
+    chapters: [1, 5, 8]
+    summary: Real investments can't promise high returns with no risk.
+  - id: pump-and-dump
+    name: Pump-and-dump and hype assets
+    kind: scam
+    chapters: [5]
+    summary: Insiders hype an asset, sell to the crowd, and leave them holding it.
+  - id: impostor-scams
+    name: Impostor scams
+    kind: scam
+    chapters: [6, 8]
+    summary: Someone pretends to be a person or agency you trust and asks for money fast.
+  - id: countdown-timer
+    name: Fake countdown timers
+    kind: dark-pattern
+    chapters: [1, 2]
+    summary: A ticking clock to rush you past thinking.
+  - id: fake-scarcity
+    name: Fake scarcity
+    kind: dark-pattern
+    chapters: [1, 4]
+    summary: '"Only 2 left!" — urgency that is often made up.'
+  - id: pre-checked-add-ons
+    name: Pre-checked add-ons
+    kind: dark-pattern
+    chapters: [1, 4]
+    summary: Extras turned on by default so you pay unless you notice.
+  - id: free-trial-trap
+    name: Free-trial traps
+    kind: dark-pattern
+    chapters: [1]
+    summary: Free trials that quietly turn into paid plans.
+
+  # ── Threads: behavioral biases ────────────────────────────
+  - id: present-bias
+    name: Present bias
+    kind: bias
+    chapters: [1, 2, 5]
+    summary: Overvaluing now over later — "I'll start saving next month."
+  - id: loss-aversion
+    name: Loss aversion
+    kind: bias
+    chapters: [5, 8]
+    summary: Losses hurt about twice as much as equal gains feel good.
+  - id: overconfidence
+    name: Overconfidence
+    kind: bias
+    chapters: [5]
+    summary: Thinking you can beat the odds more often than people really do.
+  - id: herding
+    name: Herding
+    kind: bias
+    chapters: [1, 5]
+    summary: Doing what everyone else is doing because they're doing it.
+  - id: anchoring
+    name: Anchoring
+    kind: bias
+    chapters: [1, 3, 4]
+    summary: The first number you hear shapes what seems reasonable.
+  - id: mental-accounting
+    name: Mental accounting
+    kind: bias
+    chapters: [1, 3]
+    summary: Treating money differently based on where it came from.
+  - id: sunk-cost
+    name: Sunk cost
+    kind: bias
+    chapters: [4, 5]
+    summary: Sticking with something because of what you already spent.

@@ -1,0 +1,56 @@
+# People (and apps) who text the player. `you` is reserved for the player's own messages.
+characters:
+  - id: dee
+    name: Aunt Dee
+    role: Mentor
+    avatar: 🦉
+    color: '#7a5c99'
+    bio: Thirty-one years as a bank teller at First Riverton Savings. Has seen every money mistake at least twice and finds most of them funny.
+  - id: kai
+    name: Kai
+    role: Best friend
+    avatar: 🛹
+    color: '#d9643a'
+    bio: Your best friend since sixth grade. Big heart, bigger impulses. Always takes the shiny option first.
+  - id: priya
+    name: Priya
+    role: Roommate
+    avatar: 🩺
+    color: '#2f8f83'
+    bio: Nursing student, night-shift tech, and the only person you know who labels leftovers.
+  - id: marcus
+    name: Marcus
+    role: Coworker
+    avatar: ☕
+    color: '#8a6d3b'
+    bio: Has worked at Bluebird Coffee for six years and has opinions about everything, especially taxes.
+  - id: lux
+    name: Lux Monroe
+    role: Finfluencer
+    avatar: ✨
+    color: '#c2185b'
+    bio: Host of the "Rich by Thursday" podcast and face of the Glimmer money app. Charming, confident and always selling.
+  - id: glimmer
+    name: Glimmer
+    role: App
+    avatar: 💎
+    color: '#c2185b'
+    bio: The money app Lux Monroe promotes. Sleek, fast and full of fees in small print.
+  - id: bank
+    name: Riverton Bank
+    role: Bank
+    avatar: 🏦
+    color: '#1f6f6b'
+    bio: Your bank. Mostly sends alerts.
+  - id: unknown
+    name: Unknown number
+    role: Unknown
+    avatar: '?'
+    color: '#6b6b6b'
+    bio: You don't have this number saved.
+  - id: manager
+    name: Ms. Okafor
+    role: Manager
+    avatar: 📋
+    color: '#3b5b8a'
+    bio: Runs Bluebird Coffee like a ship. Fair, busy and allergic to excuses.

@@ -1,0 +1,101 @@
+# Randomized starting points. The epilogue reflects how these shaped the outcome.
+# Money is in today's dollars; incomes are yearly gross, other lines are monthly.
+backgrounds:
+  - id: safety-net
+    title: A soft landing
+    blurb: Your family can't hand you money every month, but they've got your back in a real emergency. You start with some savings from summer jobs.
+    weight: 1
+    start:
+      ageMonths: 216
+      checking: 600
+      savings: 1500
+      grossAnnualIncome: 28000
+      rent: 750
+      otherNeeds: 550
+      wants: 300
+      subscriptions: 45
+      autoSave: 0
+      stress: 25
+      health: 65
+      freeTime: 60
+      friends: 60
+      family: 70
+      partner: 50
+      goals: 55
+      flags: [family-safety-net]
+    epilogueNote: Starting with savings and a family safety net meant early mistakes cost you less. Not everyone gets that cushion.
+
+  - id: on-your-own
+    title: On your own
+    blurb: No one is coming to bail you out, and you know it. You moved out with a couple hundred dollars and a lot of determination.
+    weight: 1
+    start:
+      ageMonths: 216
+      checking: 250
+      savings: 200
+      grossAnnualIncome: 27000
+      rent: 700
+      otherNeeds: 520
+      wants: 250
+      subscriptions: 30
+      autoSave: 0
+      stress: 40
+      health: 60
+      freeTime: 55
+      friends: 55
+      family: 40
+      partner: 50
+      goals: 60
+      flags: []
+    epilogueNote: You started with almost no cushion and no backup, so every surprise hit harder. What you built, you built yourself.
+
+  - id: early-card
+    title: Already swiping
+    blurb: You got a credit card at 18 to cover moving costs, and it's still carrying most of that balance. The rest of the plan is pretty thin.
+    weight: 1
+    start:
+      ageMonths: 216
+      checking: 300
+      savings: 0
+      card: 1100
+      cardLimit: 1500
+      creditScore: 640
+      grossAnnualIncome: 27500
+      rent: 700
+      otherNeeds: 540
+      wants: 280
+      subscriptions: 40
+      autoSave: 0
+      stress: 45
+      health: 60
+      freeTime: 55
+      friends: 60
+      family: 55
+      partner: 50
+      goals: 50
+      flags: [has-card, carries-balance]
+    epilogueNote: You started out already paying interest. Digging out of debt first meant your savings started later than everyone else's.
+
+  - id: student-worker
+    title: Classes and a part-time job
+    blurb: You're taking a full load at Riverton Community College and working part-time. A small scholarship covers tuition, but money is tight.
+    weight: 1
+    start:
+      ageMonths: 216
+      checking: 400
+      savings: 800
+      grossAnnualIncome: 19000
+      rent: 600
+      otherNeeds: 450
+      wants: 200
+      subscriptions: 30
+      autoSave: 0
+      stress: 40
+      health: 60
+      freeTime: 40
+      friends: 55
+      family: 60
+      partner: 50
+      goals: 70
+      flags: [student]
+    epilogueNote: Working while studying meant a smaller paycheck and less free time — an investment in yourself that paid off slowly.
