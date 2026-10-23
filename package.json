@@ -1,0 +1,33 @@
+{
+  "name": "compound",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A story game that teaches personal finance, one decision at a time.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate": "tsx scripts/validate-content.ts",
+    "playtest": "tsx scripts/playtest.ts",
+    "readability": "tsx scripts/readability.ts",
+    "verify:list": "tsx scripts/verify-list.ts",
+    "check": "npm run typecheck && npm run test && npm run validate && npm run playtest -- --runs 1000"
+  },
+  "dependencies": {
+    "preact": "^10.29.8"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^22.19.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.7",
+    "vitest": "^5.0.5",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.76"
+  }
+}

@@ -1,0 +1,163 @@
+# Crisis arcs trigger when meters get very low. Each one offers a real path back.
+crises:
+  - id: money-crisis
+    when: { all: [{ var: player.checking, lt: 0 }, { var: player.savings, lt: 50 }] }
+    scene: crisis-money
+    cooldownMonths: 12
+  - id: burnout-crisis
+    when: { any: [{ var: player.stress, gte: 80 }, { var: player.health, lte: 35 }, { var: player.wellbeing, lt: 30 }] }
+    scene: crisis-burnout
+    cooldownMonths: 12
+  - id: lonely-crisis
+    when: { any: [{ var: player.friends, lte: 38 }, { var: player.family, lte: 30 }, { var: player.relationships, lt: 30 }] }
+    scene: crisis-lonely
+    cooldownMonths: 12
+
+scenes:
+  - id: crisis-money
+    title: Running on fumes
+    concepts: [budgeting, emergency-fund]
+    difficulty: 2
+    texts:
+      - { from: bank, text: 'Your checking balance is below $0. Fees may apply.' }
+      - { from: dee, text: "Saw your face at lunch. Want to do the Kitchen Table thing? I'll bring the pie." }
+    setup: >-
+      Your checking account is negative and your savings are basically gone. Rent is due in nine days.
+      Aunt Dee is offering to sit down and go through every line with you.
+    choices:
+      - id: a
+        text: Do the Kitchen Table thing with Aunt Dee
+        quality: best
+        effects: { set: { wants: 80 }, checking: 220, stress: -10, family: 4 }
+        outcome: >-
+          You list every bill, cut fun money to $80 a month for now, and sell the gaming console you
+          stopped using. It's not glamorous, but by Friday you're back above zero.
+      - id: b
+        text: Grab a Glimmer cash advance to get through the month
+        quality: costly
+        tempting: true
+        effects: { checking: 150, stress: 4, counters: { glimmerAdvances: 1 } }
+        setFlags: [glimmer-user]
+        schedule: [{ event: glimmer-repay, inMonths: 1 }]
+        outcome: >-
+          The $150 hits instantly — minus a $9.99 "express fee" and a suggested tip. Next payday,
+          Glimmer takes it all back first.
+        darkPattern: { id: countdown-timer, resisted: false }
+      - id: c
+        text: Ignore it and hope next month is better
+        quality: costly
+        effects: { stress: 10, health: -4 }
+        outcome: Next month looks a lot like this one, plus a fee.
+    explanation: >-
+      When money runs short, the fix is a short, honest list: what you must pay, what can wait and
+      what can be cut for now. Fast cash advances feel like a rescue, but they just move this
+      month's gap onto next month's paycheck, with a fee on top. Cutting a few wants for a few
+      months is slower but actually closes the gap.
+    whyItMatters:
+      text: >-
+        Your essentials run {player.essentials} a month. Getting back to even one month of
+        cushion means saving {goal}, which takes about {monthsToGoal} months at $100 a month.
+      calc: emergencyFund
+      inputs: { essentials: player.essentials, savings: player.savings, perMonth: 100, goalMonths: 1 }
+      illustrative: false
+    takeaway: When money is short, make a list before you make a move.
+    review:
+      question: Checking is negative and rent is due soon. What helps most?
+      options:
+        - A cash advance to cover the gap
+        - Listing bills and cutting wants for a few months
+        - Skipping a bill and hoping it works out
+      answer: Listing bills and cutting wants for a few months
+    elapse: 1
+
+  - id: crisis-burnout
+    title: Burnt out
+    concepts: [budgeting]
+    difficulty: 1
+    texts:
+      - { from: priya, text: "You fell asleep standing up at the sink again. I'm worried. Seriously." }
+    setup: >-
+      Extra shifts, cutting every treat, checking your balance twice a day. The numbers look okay,
+      but you don't. Priya says the campus counseling center is free for students and staff.
+    choices:
+      - id: a
+        text: Take a weekend fully off and book a free counseling session
+        quality: best
+        effects: { stress: -18, health: 8, freeTime: 10 }
+        outcome: You sleep twelve hours, then talk to someone. The plan you make afterward has rest built in.
+      - id: b
+        text: Drop one shift a week and add $40 a month of fun money back
+        quality: good
+        effects: { stress: -10, freeTime: 8, adjust: { wants: 40, grossAnnualIncome: -2000 } }
+        outcome: The paycheck is a little smaller. You are a lot nicer to be around.
+      - id: c
+        text: Push through — rest is for people with savings
+        quality: costly
+        effects: { stress: 6, health: -10 }
+        outcome: You catch the flu that's going around and miss a week of shifts anyway.
+    explanation: >-
+      A budget is only good if you can keep it. Plans with no room for rest or fun tend to break,
+      and when they break people often overspend to make up for it. Building in a small, guilt-free
+      fun amount and enough rest makes the whole plan last longer. Your health is part of your
+      wealth: getting sick costs money and shifts.
+    whyItMatters:
+      text: >-
+        A guilt-free $40 a month is {perYear} a year — small next to missing a week of pay on
+        {player.grossMonthlyIncome} a month.
+      calc: recurringCost
+      inputs: { monthly: 40, years: 1, rate: 0 }
+      illustrative: true
+    takeaway: A budget you can't live with is a budget you won't keep.
+    review:
+      question: Why should a tight budget still include a little fun money?
+      options:
+        - It makes the plan easier to stick with
+        - Fun money always grows
+        - Banks require it
+      answer: It makes the plan easier to stick with
+    elapse: 1
+
+  - id: crisis-lonely
+    title: Radio silence
+    concepts: [budgeting]
+    difficulty: 1
+    texts:
+      - { from: kai, text: 'you alive?? haven''t seen you in like two months' }
+    setup: >-
+      You've said no to everything to protect your budget. Now the group chat has gone quiet and
+      Sundays feel very long.
+    choices:
+      - id: a
+        text: Host a cheap potluck and game night
+        quality: best
+        effects: { friends: 14, stress: -6, expense: 25 }
+        outcome: Twelve people, four kinds of chips, one legendary board-game fight. Total cost $25.
+      - id: b
+        text: Say yes to the next group dinner, whatever it costs
+        quality: good
+        effects: { friends: 10, expense: 70 }
+        outcome: Seventy dollars well spent. You'd forgotten how much you missed these people.
+      - id: c
+        text: Keep your head down a little longer
+        quality: risky
+        effects: { friends: -6, stress: 4 }
+        outcome: The quiet gets quieter.
+    explanation: >-
+      Saving money should not cost you your friends. Cheap ways to connect — potlucks, game nights,
+      walks — keep relationships strong without wrecking a budget. People with strong social ties
+      handle money stress better and hear about jobs and deals through each other. A small, planned
+      social budget is a good use of money.
+    whyItMatters:
+      text: A $25 game night once a month is {perYear} a year — about the cost of three dinners out.
+      calc: recurringCost
+      inputs: { monthly: 25, years: 1, rate: 0 }
+      illustrative: true
+    takeaway: Spend on people on purpose, and it won't feel like a leak.
+    review:
+      question: What's a budget-friendly way to keep up friendships?
+      options:
+        - Skip all plans until you're debt-free
+        - Host cheap get-togethers like potlucks
+        - Only go out when someone else pays
+      answer: Host cheap get-togethers like potlucks
+    elapse: 1

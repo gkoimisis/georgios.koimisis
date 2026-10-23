@@ -1,0 +1,26 @@
+endings:
+  - id: overdraft-spiral
+    kind: collapse
+    title: The overdraft spiral
+    text: >-
+      Four months in the red. Every paycheck goes to fees and catch-up bills before it even lands,
+      and the stress has crowded out everything else. It feels like a wall. It isn't — it's
+      recoverable.
+    lesson: A small cushion and automatic saving keep one bad month from turning into four.
+    when: { var: player.monthsInRed, gte: 4 }
+
+  - id: burnout
+    kind: collapse
+    title: Running on empty
+    text: >-
+      You held the money together, but you stopped sleeping, stopped seeing friends and stopped
+      feeling like yourself. Money is a tool for a good life, not a replacement for one.
+    lesson: A budget with no room for rest or people isn't a plan you can keep.
+    when: { all: [{ var: player.stress, gte: 98 }, { var: player.wellbeing, lt: 12 }] }
+
+  - id: end-of-content
+    kind: milestone
+    title: To be continued
+    text: >-
+      That's the end of Chapter 1 — your first years on your own. Chapter 2 (Credit) is still
+      being written. Your progress is saved.

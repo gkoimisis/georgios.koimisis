@@ -1,0 +1,295 @@
+# Random life events for Chapter 1. Each simulated month there's a `monthlyChance`
+# that one eligible event fires (weighted). `drawable: false` events only happen
+# when a choice schedules them — they're the delayed consequences.
+id: ch1-life
+chapters: [1]
+monthlyChance: 0.24
+events:
+  # ── Surprises (the emergency fund's job) ─────────────────────
+  - id: dental
+    title: A cracked tooth
+    body: The dentist bill after a quick fix is $420.
+    icon: 🦷
+    weight: 2
+    cooldownMonths: 12
+    effects: { expense: 420, health: -4 }
+    concepts: [emergency-fund]
+  - id: laptop-dies
+    title: Laptop dies
+    body: Right before a deadline, of course. A refurbished replacement is $380.
+    icon: 💻
+    weight: 2
+    once: true
+    effects: { expense: 380, goals: -2 }
+    concepts: [emergency-fund]
+  - id: bike-stolen
+    title: Bike stolen
+    body: Someone cut the lock outside the library. A used replacement is $250.
+    icon: 🚲
+    weight: 1.5
+    once: true
+    effects: { expense: 250, stress: 3 }
+    concepts: [emergency-fund]
+  - id: urgent-care
+    title: Urgent care visit
+    body: A nasty ear infection. Your share of the bill is $190.
+    icon: 🩹
+    weight: 2
+    cooldownMonths: 10
+    effects: { expense: 190, health: -4 }
+    concepts: [emergency-fund]
+  - id: cousin-wedding
+    title: Cousin's wedding
+    body: Bus tickets, a gift and a borrowed suit add up to $350. Worth it.
+    icon: 💒
+    weight: 1.5
+    once: true
+    when: { var: player.month, gte: 18 }
+    effects: { expense: 350, family: 5 }
+    concepts: [budgeting]
+
+  # ── Windfalls ────────────────────────────────────────────────
+  - id: birthday-cash
+    title: Birthday card
+    body: Grandma sent $100 and a note that says "for something sensible (or fun)."
+    icon: 🎂
+    weight: 2
+    cooldownMonths: 12
+    effects: { checking: 100, family: 2 }
+  - id: holiday-bonus
+    title: Holiday rush bonus
+    body: Ms. Okafor hands out $150 bonuses after the busiest week of the year.
+    icon: 🎁
+    weight: 1
+    cooldownMonths: 12
+    effects: { checking: 150, goals: 1 }
+  - id: tax-refund
+    title: Tax refund
+    body: Your federal tax refund just landed — $310.
+    icon: 🧾
+    weight: 2
+    once: true
+    when: { all: [{ var: player.month, gte: 4 }, { notFlag: w4-exempt }] }
+    effects: { checking: 310 }
+    concepts: [tax-refunds]
+    scene: ch1-ev-refund
+
+  # ── Dark patterns ────────────────────────────────────────────
+  - id: free-trial-converts
+    title: FitFlow charged you $14.99
+    body: Your 7-day free trial ended. Welcome to FitFlow Premium!
+    icon: 🏋️
+    weight: 2
+    once: true
+    when: { var: player.month, gte: 2 }
+    effects: { checking: -14.99 }
+    concepts: [free-trial-trap]
+    scene: ch1-ev-trial
+  - id: scam-followup
+    title: '"You''ve won a $500 gift card!"'
+    body: Another text from a number you don't know. You delete it without tapping.
+    icon: 📵
+    weight: 3
+    cooldownMonths: 6
+    when: { flag: scam-target }
+    effects: { stress: 1 }
+    concepts: [phishing]
+
+  # ── Delayed consequences (scheduled by choices) ─────────────
+  - id: w4-tax-bill
+    title: Tax time surprise
+    body: Because nothing was withheld, you owe the IRS $860 — the tax itself plus a small penalty.
+    icon: 🧾
+    weight: 1
+    drawable: false
+    effects: { expense: 860, stress: 8 }
+    clearFlags: [w4-exempt]
+    concepts: [gross-vs-net]
+  - id: glimmer-repay-100
+    title: Glimmer collected your Boost
+    body: $100 plus a $4.99 express fee, taken the moment your paycheck landed.
+    icon: 💎
+    weight: 1
+    drawable: false
+    effects: { checking: -104.99 }
+  - id: glimmer-repay
+    title: Glimmer collected your advance
+    body: $150 plus $9.99 in fees, taken first thing on payday.
+    icon: 💎
+    weight: 1
+    drawable: false
+    effects: { checking: -159.99, stress: 3 }
+  - id: phished-drain
+    title: Someone sent $400 from your account
+    body: The scammer used your login. You report it to the bank right away and they open a claim.
+    icon: 🚨
+    weight: 1
+    drawable: false
+    effects: { checking: -400, stress: 10 }
+    schedule: [{ event: phished-refund, inMonths: 2 }]
+    concepts: [phishing]
+  - id: phished-refund
+    title: Fraud claim resolved
+    body: After weeks of calls, the bank returns $350. You change every password you own.
+    icon: ✅
+    weight: 1
+    drawable: false
+    effects: { checking: 350, stress: -4 }
+    clearFlags: [phished]
+  - id: phone-paid-off
+    title: Phone paid off
+    body: The last $41.62 phone payment went through. That's one less bill.
+    icon: 📱
+    weight: 1
+    drawable: false
+    effects: { adjust: { otherNeeds: -42 } }
+  - id: trip-funded
+    title: Beach trip!
+    body: Fully paid before you left. Sunburn, card games and zero debt.
+    icon: 🏖️
+    weight: 1
+    drawable: false
+    effects: { adjust: { wants: 225 }, expense: 900, friends: 8, wellbeing: 4 }
+  - id: bnpl-trip-done
+    title: Last Pay-in-4 payment
+    body: The trip is finally paid off, four months after you got home.
+    icon: 💎
+    weight: 1
+    drawable: false
+    effects: { adjust: { otherNeeds: -235 } }
+  - id: hours-restored
+    title: Hours are back
+    body: Busy season is here. Your full schedule is back.
+    icon: ☕
+    weight: 1
+    drawable: false
+    effects: { adjust: { grossAnnualIncome: 8000 }, stress: -4 }
+  - id: hours-restored-gig
+    title: Hours are back
+    body: Your full schedule is back, so you stop the night delivery shifts.
+    icon: ☕
+    weight: 1
+    drawable: false
+    effects: { adjust: { grossAnnualIncome: 4000 }, freeTime: 8, stress: -4 }
+  - id: dee-repays
+    title: Aunt Dee paid you back
+    body: $600, right on schedule, with a thank-you card and a pie.
+    icon: 🥧
+    weight: 1
+    drawable: false
+    effects: { savings: 600, family: 3 }
+  - id: vault-frozen
+    title: Glimmer Vault paused withdrawals
+    body: '"Due to market conditions," no one can take money out. Lux Monroe''s channel has gone quiet.'
+    icon: 🧊
+    weight: 1
+    drawable: false
+    effects: { stress: 10 }
+    concepts: [guaranteed-returns]
+  - id: kai-short-rent
+    title: Kai is short on rent
+    body: Kai can't cover their half this month. You pay the extra $350 so you both don't get a late fee.
+    icon: 🛹
+    weight: 1
+    drawable: false
+    effects: { expense: 350, friends: -3, stress: 4 }
+
+scenes:
+  - id: ch1-ev-refund
+    title: Free money?
+    concepts: [tax-refunds, emergency-fund, gross-vs-net, compound-interest, mental-accounting]
+    difficulty: 1
+    texts:
+      - { from: kai, text: 'REFUND SZN 💸 what are u buying' }
+    setup: >-
+      A $310 tax refund just landed in checking. Kai is already spending theirs. What do you do
+      with yours?
+    choices:
+      - id: a
+        text: Move all of it into savings
+        quality: best
+        effects: { toSavings: 310 }
+        outcome: Your cushion gets a nice bump. Future you sends a thank-you note.
+        bias: { id: mental-accounting, resisted: true }
+      - id: b
+        text: Half to savings, half on something fun
+        quality: good
+        effects: { toSavings: 155, wellbeing: 2 }
+        outcome: >-
+          New sneakers and a bigger cushion. A plan that's both sensible and fun tends to stick.
+      - id: c
+        text: Spend it — it's free money!
+        quality: risky
+        tempting: true
+        effects: { checking: -310, wellbeing: 3 }
+        outcome: It's gone in a weekend. It was fun. It was also your money all along.
+        bias: { id: mental-accounting, resisted: false }
+    explanation: >-
+      A tax refund isn't a gift — it's your own money that was withheld from your paychecks during
+      the year and is now being returned. Treating it as "free money" is a classic mistake called
+      mental accounting: spending money differently because of where it came from. A dollar from a
+      refund is worth exactly as much as a dollar from your paycheck.
+    whyItMatters:
+      text: >-
+        Saved at {rate}, a {principal} refund grows to {futureValue} in {years} years without you
+        adding another cent.
+      calc: compoundGrowth
+      inputs: { principal: 310, monthly: 0, rate: locale.hysaApy, years: 5 }
+      illustrative: true
+    takeaway: A refund is your own money coming home — treat it like any other dollar.
+    review:
+      question: Why isn't a tax refund "free money"?
+      options:
+        - It has to be paid back next year
+        - It's your own pay that was over-withheld during the year
+        - Refunds are taxed twice
+      answer: It's your own pay that was over-withheld during the year
+    elapse: 0
+
+  - id: ch1-ev-trial
+    title: The free trial that wasn't
+    concepts: [subscription-creep, free-trial-trap, present-bias]
+    difficulty: 1
+    setup: >-
+      You signed up for a "free" FitFlow trial to try one workout. You did zero workouts. FitFlow
+      just charged you $14.99 and will keep doing it every month.
+    choices:
+      - id: a
+        text: Cancel now, and put every future trial's end date in your calendar
+        quality: best
+        setFlags: [trial-reminders]
+        effects: { goals: 1 }
+        outcome: Cancelled in two minutes. Your calendar is now your bodyguard.
+        darkPattern: { id: free-trial-trap, resisted: true }
+      - id: b
+        text: Keep it — you'll definitely start working out
+        quality: risky
+        tempting: true
+        effects: { adjust: { subscriptions: 14.99 } }
+        outcome: You will definitely start working out. Next month. The charge starts this month.
+        bias: { id: present-bias, resisted: false }
+      - id: c
+        text: Cancel and politely ask for a refund of the first charge
+        quality: best
+        effects: { checking: 14.99 }
+        outcome: The support chat refunds it in five minutes. Asking works more often than you'd think.
+        darkPattern: { id: free-trial-trap, resisted: true }
+    explanation: >-
+      Free trials work because companies know many people forget to cancel. The trial asks for your
+      card up front so the switch to paid is automatic. Protect yourself: set a reminder for the day
+      before a trial ends, cancel right away if you're not sure, and ask for a refund if you get
+      charged for something you didn't use. Many companies will say yes.
+    whyItMatters:
+      text: A forgotten {monthly} subscription costs {perYear} a year and {total} over {years} years.
+      calc: recurringCost
+      inputs: { monthly: 14.99, years: 3, rate: 0 }
+      illustrative: true
+    takeaway: Set a reminder the day you start a free trial.
+    review:
+      question: What's the best habit when you start a free trial?
+      options:
+        - Set a reminder to cancel before it ends
+        - Use a debit card instead of credit
+        - Hope you remember
+      answer: Set a reminder to cancel before it ends
+    elapse: 0

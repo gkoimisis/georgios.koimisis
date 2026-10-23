@@ -1,0 +1,141 @@
+# United States locale pack.
+# Every law, fact or statistic needs a `source`. `lastVerified` stays null until a human
+# checks the value; unverified facts are listed in VERIFY.md (npm run verify:list).
+# `illustrative` values are round, realistic numbers for examples — the UI labels them.
+id: us
+name: United States
+currency: USD
+numberLocale: en-US
+facts:
+  taxYear:
+    value: 2026
+    kind: convention
+    label: Tax year the brackets below describe
+
+  standardDeduction:
+    value: 16100
+    kind: law
+    label: Federal standard deduction, single filer
+    source: IRS inflation adjustments for tax year 2026 (Rev. Proc. 2025-32)
+    note: Single filer. Recheck every year.
+    lastVerified: null
+
+  taxBrackets:
+    value:
+      - { from: 0, rate: 0.10 }
+      - { from: 12400, rate: 0.12 }
+      - { from: 50400, rate: 0.22 }
+      - { from: 105700, rate: 0.24 }
+      - { from: 201775, rate: 0.32 }
+      - { from: 256225, rate: 0.35 }
+      - { from: 640600, rate: 0.37 }
+    kind: law
+    label: Federal income-tax brackets, single filer (taxable income)
+    source: IRS inflation adjustments for tax year 2026 (Rev. Proc. 2025-32)
+    lastVerified: null
+
+  socialSecurityRate:
+    value: 0.062
+    kind: law
+    label: Social Security tax rate, employee share
+    source: Social Security Administration, "Contribution and Benefit Base"
+    lastVerified: null
+
+  socialSecurityWageBase:
+    value: 184500
+    kind: law
+    label: Social Security wage base (earnings above this are not taxed for Social Security)
+    source: Social Security Administration 2026 COLA fact sheet
+    lastVerified: null
+
+  medicareRate:
+    value: 0.0145
+    kind: law
+    label: Medicare tax rate, employee share
+    source: IRS Topic 751, Social Security and Medicare withholding rates
+    lastVerified: null
+
+  stateTaxRate:
+    value: 0.04
+    kind: illustrative
+    label: Flat stand-in for state and local income tax
+    note: Real state taxes range from zero to progressive brackets above 10%. The game uses one flat rate.
+
+  typicalCardApr:
+    value: 0.22
+    kind: illustrative
+    label: Typical credit-card APR
+    source: Federal Reserve G.19 Consumer Credit release (average APR on accounts assessed interest)
+    note: Rounded to a typical recent level. Check the latest G.19 before citing it as a statistic.
+
+  cardMinimumPercent:
+    value: 0.01
+    kind: illustrative
+    label: Minimum payment, share of balance (paid on top of that month's interest)
+    note: A common issuer formula. Real formulas vary by issuer.
+
+  cardMinimumFloor:
+    value: 25
+    kind: illustrative
+    label: Smallest minimum payment
+    note: Varies by issuer.
+
+  cardLateFee:
+    value: 30
+    kind: illustrative
+    label: Late fee on a missed card payment
+    note: Late-fee rules have been changing; keep illustrative.
+
+  overdraftFee:
+    value: 35
+    kind: illustrative
+    label: Overdraft fee per item
+    note: Long a common figure at large banks; many banks have since cut or dropped it.
+
+  hysaApy:
+    value: 0.035
+    kind: illustrative
+    label: High-yield savings account APY
+    note: Online savings rates move with the Fed. Keep illustrative.
+
+  bankSavingsApy:
+    value: 0.004
+    kind: illustrative
+    label: Typical big-bank savings account APY
+
+  longRunInflation:
+    value: 0.03
+    kind: illustrative
+    label: Inflation rate used in long-run examples
+
+  stockLongRunReturn:
+    value: 0.07
+    kind: illustrative
+    label: Long-run nominal return used for a diversified stock index fund in examples
+    note: Not a promise. Real returns vary a lot from year to year.
+
+  emergencyFundMonthsGoal:
+    value: 3
+    kind: convention
+    label: Starter emergency-fund goal, in months of essential expenses
+    note: Common guidance is 3-6 months; the game starts players at 3.
+
+  housingShareGuideline:
+    value: 0.3
+    kind: convention
+    label: Rule-of-thumb share of income for housing
+    note: A common planning guideline, not a law. Often stated against gross income; the game compares it with take-home pay to be conservative.
+
+  creditScoreMin:
+    value: 300
+    kind: fact
+    label: Lowest FICO score
+    source: myFICO, "What is a credit score?"
+    lastVerified: null
+
+  creditScoreMax:
+    value: 850
+    kind: fact
+    label: Highest FICO score
+    source: myFICO, "What is a credit score?"
+    lastVerified: null
