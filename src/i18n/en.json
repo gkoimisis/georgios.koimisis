@@ -154,6 +154,8 @@
   "save.storageOff": "Saving is unavailable in this browser mode, so progress lasts only until you close the tab. Use a save code to keep it.",
 
   "restart.confirm": "Start a new life? Your current run will be replaced. Your Money Rules stay.",
+  "restart.yes": "Yes, start a new life",
+  "restart.cancel": "Keep playing",
   "rules.empty": "Make decisions to collect Money Rules.",
   "rules.count": "{n} collected",
 

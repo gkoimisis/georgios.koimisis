@@ -21,6 +21,7 @@ export function Menu(p: MenuProps) {
   const [tab, setTab] = useState<Tab>('rules');
   const [code, setCode] = useState('');
   const [msg, setMsg] = useState('');
+  const [confirming, setConfirming] = useState(false);
   const sheet = useRef<HTMLDivElement>(null);
   const opener = useRef<Element | null>(null);
 
@@ -163,19 +164,28 @@ export function Menu(p: MenuProps) {
           {msg}
         </p>
 
-        <div class="btn-row">
-          <button class="btn btn-secondary" onClick={p.onTitle}>
-            {t('menu.title_screen')}
-          </button>
-          <button
-            class="btn btn-ghost"
-            onClick={() => {
-              if (window.confirm(t('restart.confirm'))) p.onRestart();
-            }}
-          >
-            {t('menu.restart')}
-          </button>
-        </div>
+        {confirming ? (
+          <div class="callout stack-sm" role="alert">
+            <p>{t('restart.confirm')}</p>
+            <div class="btn-row">
+              <button class="btn btn-danger" onClick={p.onRestart}>
+                {t('restart.yes')}
+              </button>
+              <button class="btn btn-secondary" onClick={() => setConfirming(false)}>
+                {t('restart.cancel')}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div class="btn-row">
+            <button class="btn btn-secondary" onClick={p.onTitle}>
+              {t('menu.title_screen')}
+            </button>
+            <button class="btn btn-ghost" onClick={() => setConfirming(true)}>
+              {t('menu.restart')}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
